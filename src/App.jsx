@@ -9,7 +9,6 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Simulation state
   const [simulation, setSimulation] = useState(null);
 
   const handleAnalyze = async (data) => {
@@ -28,7 +27,6 @@ function App() {
     }
   };
 
-  // Currency formatter (keep IDR or change if needed)
   const formatCurrency = (number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -41,7 +39,6 @@ function App() {
 
   const current = simulation || result;
 
-  // Simulate 10% expense reduction
   const handleSimulation = () => {
     if (!result) return;
 
@@ -65,7 +62,6 @@ function App() {
     setSimulation(null);
   };
 
-  // Insights
   const biggest = current
     ? Object.entries(current.analysis.breakdown).sort((a, b) => b[1] - a[1])[0]
     : null;
@@ -83,6 +79,13 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
+        {/* 🔥 LOGO */}
+        <img
+          src="/logo_finsight-AI.png"
+          alt="FinSight AI Logo"
+          className="w-16 h-16 mx-auto mb-2 drop-shadow-md"
+        />
+
         {/* Title */}
         <h1 className="text-3xl font-bold text-center mb-2">FinSight AI 💰</h1>
         <p className="text-center text-gray-500 text-sm">
