@@ -81,7 +81,7 @@ function App() {
       <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
         {/* 🔥 LOGO */}
         <img
-          src="/logo_finsight-AI.png"
+          src="/public/logo_finsight-AI.png"
           alt="FinSight AI Logo"
           className="w-16 h-16 mx-auto mb-2 drop-shadow-md"
         />
