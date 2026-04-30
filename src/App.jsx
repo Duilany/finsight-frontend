@@ -17,7 +17,9 @@ function App() {
       setLoading(true);
       setSimulation(null); // reset simulasi
 
-      const res = await axios.post("http://127.0.0.1:5000/analyze", data);
+      const API_URL = import.meta.env.VITE_API_URL;
+
+      const res = await axios.post(`${API_URL}/analyze`, data);
       setResult(res.data);
     } catch (err) {
       alert("Error connecting to backend");
