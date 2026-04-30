@@ -9,13 +9,13 @@ function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // 🔥 state untuk simulasi
+  // Simulation state
   const [simulation, setSimulation] = useState(null);
 
   const handleAnalyze = async (data) => {
     try {
       setLoading(true);
-      setSimulation(null); // reset simulasi
+      setSimulation(null);
 
       const API_URL = import.meta.env.VITE_API_URL;
 
@@ -28,7 +28,8 @@ function App() {
     }
   };
 
-  const formatRupiah = (number) => {
+  // Currency formatter (keep IDR or change if needed)
+  const formatCurrency = (number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
@@ -38,10 +39,9 @@ function App() {
       .replace("Rp", "Rp ");
   };
 
-  // 🔥 pilih data (hasil asli atau simulasi)
   const current = simulation || result;
 
-  // 🔥 simulasi hemat 10%
+  // Simulate 10% expense reduction
   const handleSimulation = () => {
     if (!result) return;
 
@@ -65,7 +65,7 @@ function App() {
     setSimulation(null);
   };
 
-  // 🔥 Insight tambahan
+  // Insights
   const biggest = current
     ? Object.entries(current.analysis.breakdown).sort((a, b) => b[1] - a[1])[0]
     : null;
@@ -102,7 +102,7 @@ function App() {
           <div className="text-center py-6">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mx-auto"></div>
             <p className="mt-3 text-gray-500 text-sm">
-              AI sedang menganalisis keuangan kamu...
+              AI is analyzing your financial data...
             </p>
           </div>
         )}
@@ -110,13 +110,13 @@ function App() {
         {/* Result */}
         {!loading && current && (
           <div className="space-y-4">
-            {/* 🔥 INTERACTIVE BUTTON */}
+            {/* Buttons */}
             <div className="flex gap-2">
               <button
                 onClick={handleSimulation}
                 className="flex-1 bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition text-sm"
               >
-                🔁 Simulasi Hemat 10%
+                🔁 Simulate 10% Savings
               </button>
 
               {simulation && (
@@ -128,22 +128,26 @@ function App() {
                 </button>
               )}
             </div>
+
             {/* AI Profile */}
             <div className="bg-purple-100 text-purple-700 p-3 rounded-lg text-center text-sm font-medium">
               💡 AI Financial Profile: <b>{result.profile}</b>
             </div>
+
             {/* Banner */}
             <div className="bg-purple-100 text-purple-700 p-3 rounded-lg text-center text-sm">
-              🤖 AI menganalisis kebiasaan keuangan kamu secara personal
+              🤖 AI analyzes your financial behavior and provides personalized
+              insights
             </div>
 
-            {/* Status */}
+            {/* Largest Expense */}
             {biggest && (
               <div className="bg-red-100 text-red-600 p-3 rounded-lg text-center text-sm">
-                ⚠️ Pengeluaran terbesar: <b>{biggest[0]}</b> ({biggest[1]}%)
+                ⚠️ Largest expense: <b>{biggest[0]}</b> ({biggest[1]}%)
               </div>
             )}
 
+            {/* Health Status */}
             {isHealthy !== null && (
               <div
                 className={`p-3 rounded-lg text-center text-sm font-medium ${
@@ -153,12 +157,12 @@ function App() {
                 }`}
               >
                 {isHealthy
-                  ? "✅ Kondisi keuangan sehat"
-                  : "⚠️ Perlu perbaikan pengeluaran"}
+                  ? "✅ Your financial condition is healthy"
+                  : "⚠️ Your finances need improvement"}
               </div>
             )}
 
-            {/* Saving rate */}
+            {/* Saving Rate */}
             <div className="bg-indigo-100 text-indigo-700 p-3 rounded-lg text-center text-sm">
               📊 Saving rate: <b>{savingRate.toFixed(1)}%</b>
             </div>
@@ -168,14 +172,14 @@ function App() {
               <div className="bg-green-100 p-4 rounded-xl text-center">
                 <p className="text-sm text-gray-500">Total Expense</p>
                 <h2 className="text-xl font-bold">
-                  {formatRupiah(current.analysis.total_expense)}
+                  {formatCurrency(current.analysis.total_expense)}
                 </h2>
               </div>
 
               <div className="bg-blue-100 p-4 rounded-xl text-center">
                 <p className="text-sm text-gray-500">Savings</p>
                 <h2 className="text-xl font-bold">
-                  {formatRupiah(current.analysis.savings)}
+                  {formatCurrency(current.analysis.savings)}
                 </h2>
               </div>
             </div>
